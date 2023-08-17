@@ -1,0 +1,20 @@
+guest:
+  name: "Guest"
+  id: "guest"
+  nameTagFormat: "§7[§aGuest§7] %nickname%"
+  chatFormat: "§7[§aGuest§7] %nickname% §e» §f%message%"
+  aliases:
+    - "g"
+    - "misafir"
+  permissions:
+    - "minecraft.command.tell"
+vip:
+  name: "VIP"
+  id: "vip"
+  nameTagFormat: "§7[§dVIP§7] %nickname%"
+  chatFormat: "§7[§dVIP§7] %nickname% §e» §f%message%"
+  aliases:
+    - "VIP"
+  permissions:
+    - "permission.vip"
+  inheritance: "guest"
