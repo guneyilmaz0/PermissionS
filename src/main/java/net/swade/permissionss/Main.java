@@ -3,6 +3,8 @@ package net.swade.permissionss;
 import cn.nukkit.plugin.PluginBase;
 import lombok.Getter;
 import net.swade.permissionss.group.GroupManager;
+import net.swade.permissionss.listener.PlayerListener;
+import net.swade.permissionss.permission.PermissionManager;
 
 public class Main extends PluginBase {
 
@@ -11,19 +13,24 @@ public class Main extends PluginBase {
 
     @Override
     public void onLoad() {
-        playerConfigPath  = getDataFolder().getPath() + "/players.json";
         instance = this;
+        playerConfigPath  = getDataFolder().getPath() + "/players.json";
         saveDefaultConfig();
-        GroupManager.load();
-        getLogger().info("Groups Loaded");
-        getLogger().info("Groups size: " + GroupManager.groups.size());
     }
 
     @Override
     public void onEnable() {
+        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        getServer().getCommandMap().register("test", new TestCommand());
+
+        GroupManager.load();
+        getLogger().info("Groups Loaded");
+        getLogger().info("Groups size: " + GroupManager.groups.size());
+        PermissionManager.addPermsToOnlinePlayers();
     }
 
     @Override
     public void onDisable() {
+        PermissionManager.removePermissions();
     }
 }

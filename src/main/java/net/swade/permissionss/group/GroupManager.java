@@ -1,12 +1,12 @@
 package net.swade.permissionss.group;
 
+import cn.nukkit.Player;
+import cn.nukkit.permission.PermissionAttachment;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.ConfigSection;
 import net.swade.permissionss.Main;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GroupManager {
 
@@ -23,7 +23,7 @@ public class GroupManager {
                     section.getString("chatFormat"),
                     section.getStringList("aliases"),
                     section.getStringList("permissions"),
-                    section.getString("inheritance"));
+                    section.getString("inheritance", null));
             groups.add(group);
         });
     }
@@ -37,4 +37,23 @@ public class GroupManager {
 
         throw new NullPointerException("Group not found.");
     }
+
+    public static Group getDefaultGroup(){
+        Config config = Main.getInstance().getConfig();
+        System.out.println(config.getString("defaultGroup")+ " default here");
+        return getGroup(config.getString("defaultGroup"));
+    }
+
+    public static Group getPlayerGroup(UUID uuid){
+        Config config = new Config(Main.getInstance().getDataFolder() + "/players.json", 1);
+        if (config.exists(uuid.toString())){
+            System.out.println(config.getString(uuid.toString())  + " uuid true");
+            return getGroup(config.getString(uuid.toString()));
+        }
+        config.set(uuid.toString(), getDefaultGroup().getId());
+        config.save();
+        System.out.println(config.getString(uuid.toString())  + " uuid false");
+        return getGroup(config.getString(uuid.toString()));
+    }
+
 }

@@ -17,7 +17,8 @@ public class Group {
     public List<String> getAllPermissions() {
         Group group = this;
         List<String> perms = new ArrayList<>(group.permissions);
-        while (group.inheritance != null) {
+            while (!group.inheritance.equalsIgnoreCase("false")) {
+            System.out.println(group.inheritance + " inheritance here");
             Group inheritance = GroupManager.getGroup(group.inheritance);
             perms.addAll(inheritance.permissions);
             group = inheritance;
