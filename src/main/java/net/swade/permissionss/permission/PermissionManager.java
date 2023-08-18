@@ -21,7 +21,7 @@ public class PermissionManager {
 
     public static void handlePermissions(Player player){
         PermissionAttachment attachment = player.addAttachment(Main.getInstance());
-        Group group = GroupManager.getPlayerGroup(player.getUniqueId());
+        Group group = GroupManager.getPlayerGroup(player);
         for (String perm : group.getAllPermissions()) {
             attachment.setPermission(perm, true);
         }

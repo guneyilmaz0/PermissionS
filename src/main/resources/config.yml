@@ -1,1 +1,20 @@
 defaultGroup: "guest"
+commands:
+  add_group:
+    description: "Adds a new group."
+    usage: "Usage: /addgroup <group>"
+    success: "Added §u%var0% §rto the group list successfully."
+    already_exists: "Group §u%var0% §ralready exists."
+    invalid_name: "Invalid group name. §u%var0%"
+  remove_group:
+    description: "Removes a rank from the group list."
+    usage: "Usage: /removegroup <group>"
+    success: "Removed §u%var0% §rto the group list successfully."
+    not_found: "Group §u%var0% §rdoes NOT exist."
+    invalid_name: "Invalid group name. §u%var0%"
+  set_group:
+    description: "Sets a group for the user."
+    usage: "Usage: /setgroup <player> <group>"
+    success: "Added §u%var1% §rto the §u%var0% §rsuccessfully."
+    not_found: "Group §u%var0% §rdoes NOT exist."
+    player_message: "Your group has been changed to a / an §u%var0%!"

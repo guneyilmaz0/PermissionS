@@ -12,16 +12,16 @@ public class Group {
     private final String name, id, nameTagFormat, chatFormat;
     private final List<String> aliases;
     private final List<String> permissions;
-    private final String inheritance;
+    private final List<String> inheritance;
 
     public List<String> getAllPermissions() {
-        Group group = this;
-        List<String> perms = new ArrayList<>(group.permissions);
-            while (!group.inheritance.equalsIgnoreCase("false")) {
-            System.out.println(group.inheritance + " inheritance here");
-            Group inheritance = GroupManager.getGroup(group.inheritance);
-            perms.addAll(inheritance.permissions);
-            group = inheritance;
+        List<String> perms = new ArrayList<>(this.permissions);
+        if (inheritance.size() == 0){
+            return perms;
+        }
+        for (String inheritance : this.inheritance) {
+            Group group = GroupManager.getGroup(inheritance);
+            perms.addAll(group.getAllPermissions());
         }
         return perms;
     }
