@@ -21,3 +21,8 @@ commands:
   groups:
     description: "Shows a list of all groups."
     all_registered_groups: "All registered groups: %var0%"
+  default_group:
+    description: "Allows you to set default group."
+    usage: "Usage: /defaultgroup <group>"
+    not_found: "Group §u%var0% §rdoes NOT exist."
+    success: "Default group has been successfully set to §u%var0%."

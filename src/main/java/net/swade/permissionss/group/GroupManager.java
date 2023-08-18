@@ -46,6 +46,12 @@ public class GroupManager {
         return getGroup(config.getString("defaultGroup"));
     }
 
+    public static void setDefaultGroup(Group group){
+        Config config = Main.getInstance().getConfig();
+        config.set("defaultGroup", group.getId());
+        config.save();
+    }
+
     public static Group getPlayerGroup(Player player){
         return getPlayerGroup(player.getName());
     }
