@@ -1,7 +1,5 @@
 package net.swade.permissionss;
 
-import java.util.regex.Pattern;
-
 public class Utils {
     public static boolean isValidGroupName(String groupName) {
         return true;

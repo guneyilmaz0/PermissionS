@@ -18,3 +18,6 @@ commands:
     success: "Added §u%var1% §rto the §u%var0% §rsuccessfully."
     not_found: "Group §u%var0% §rdoes NOT exist."
     player_message: "Your group has been changed to a / an §u%var0%!"
+  groups:
+    description: "Shows a list of all groups."
+    all_registered_groups: "All registered groups: %var0%"
