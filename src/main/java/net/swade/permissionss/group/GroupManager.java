@@ -57,7 +57,7 @@ public class GroupManager {
     }
 
     public static Group getPlayerGroup(String name){
-        Config config = new Config(Main.getInstance().getDataFolder() + "/players.json", 1);
+        Config config = new Config(Main.getInstance().getPlayerConfigPath(), 1);
         if (config.exists(name.toLowerCase())){
             return getGroup(config.getString(name.toLowerCase()));
         }
@@ -70,7 +70,7 @@ public class GroupManager {
     }
 
     public static void setPlayerGroup(String name, Group group){
-        Config config = new Config(Main.getInstance().getDataFolder() + "/players.json", 1);
+        Config config = new Config(Main.getInstance().getPlayerConfigPath(), 1);
         config.set(name.toLowerCase(), group.getId());
         config.save();
         PermissionManager.reloadPermissions();
