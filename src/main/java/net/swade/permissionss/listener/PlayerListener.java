@@ -19,6 +19,7 @@ public class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
         PermissionManager.handlePermissions(player);
+        player.setNameTag(GroupManager.getPlayerGroup(player).getNameTagFormat());
     }
 
     @EventHandler
@@ -45,6 +46,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onGroupChange(PlayerGroupChangeEvent event){
         Player player = event.getPlayer();
+        player.setNameTag(event.getNewGroup().getNameTagFormat());
         player.sendMessage(Utils.translate("commands.set_group.player_message", event.getNewGroup().getName()));
     }
 }
