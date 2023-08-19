@@ -23,7 +23,7 @@ public class ListGroups extends Command {
         for (Group group : GroupManager.groups) {
             groups.append(group.getName()).append(", ");
         }
-        groups.deleteCharAt(groups.length() - 1);
+        groups.deleteCharAt(groups.length() - 2);
         commandSender.sendMessage(Utils.translate("commands.groups.all_registered_groups", groups.toString()));
         return false;
     }
