@@ -26,3 +26,7 @@ commands:
     usage: "Usage: /defaultgroup <group>"
     not_found: "Group §u%var0% §rdoes NOT exist."
     success: "Default group has been successfully set to §u%var0%."
+  permssinfo:
+    description: "Shows current PermissionS information including author, version, and etc."
+    console: "You are currently using PermissionS v%var0% by %var1%."
+    player: "This server is using PermissionS v%var0% by %var1%."
