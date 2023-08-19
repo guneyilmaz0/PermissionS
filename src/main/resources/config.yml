@@ -30,3 +30,8 @@ commands:
     description: "Shows current PermissionS information including author, version, and etc."
     console: "You are currently using PermissionS v%var0% by %var1%."
     player: "This server is using PermissionS v%var0% by %var1%."
+  set_format:
+    description: "Allows you to set default chat format of a PermissionS group"
+    usage: "Usage: /setformat <group> <format>"
+    not_found: "Group §u%var0% §rdoes NOT exist."
+    success: "You set the chat format of the §u%var0% §rto §u%var1%"

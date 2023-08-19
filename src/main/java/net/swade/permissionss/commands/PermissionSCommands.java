@@ -17,6 +17,7 @@ public class PermissionSCommands {
         commands.add(new ListGroups());
         commands.add(new DefaultGroup());
         commands.add(new PermissionsSInfo());
+        commands.add(new SetFormat());
         map.registerAll("permissionss", commands);
     }
 }

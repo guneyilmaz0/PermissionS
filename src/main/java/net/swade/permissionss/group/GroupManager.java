@@ -109,4 +109,10 @@ public class GroupManager {
         load();
         return Process.SUCCESS;
     }
+
+    public static void setChatFormat(Group group, String format){
+        Config config = new Config(Main.getInstance().getDataFolder() + "/groups.yml", 2);
+        config.set(group.getId() +".chatFormat", format);
+        config.save();
+    }
 }
