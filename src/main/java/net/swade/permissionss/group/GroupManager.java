@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.ConfigSection;
 import net.swade.permissionss.Main;
+import net.swade.permissionss.Profile;
 import net.swade.permissionss.Utils;
 import net.swade.permissionss.enums.Process;
 import net.swade.permissionss.permission.PermissionManager;
@@ -59,9 +60,10 @@ public class GroupManager {
     public static Group getPlayerGroup(String name){
         Config config = new Config(Main.getInstance().getPlayerConfigPath(), 1);
         if (config.exists(name.toLowerCase())){
-            return getGroup(config.getString(name.toLowerCase()));
+            Profile profile = Profile.getProfile(name);
+            return getGroup(profile.getGroup());
         }
-        setPlayerGroup(name.toLowerCase(), getDefaultGroup());
+        Main.getInstance().registerPlayer(name);
         return getDefaultGroup();
     }
 
@@ -71,7 +73,9 @@ public class GroupManager {
 
     public static void setPlayerGroup(String name, Group group){
         Config config = new Config(Main.getInstance().getPlayerConfigPath(), 1);
-        config.set(name.toLowerCase(), group.getId());
+        Profile profile = Profile.getProfile(name);
+        profile.setGroup(group.getId());
+        config.set(name.toLowerCase(), profile.toString());
         config.save();
         PermissionManager.reloadPermissions();
     }
@@ -114,5 +118,13 @@ public class GroupManager {
         Config config = new Config(Main.getInstance().getDataFolder() + "/groups.yml", 2);
         config.set(group.getId() +".chatFormat", format);
         config.save();
+        load();
+    }
+
+    public static void setNameTagFormat(Group group, String format){
+        Config config = new Config(Main.getInstance().getDataFolder() + "/groups.yml", 2);
+        config.set(group.getId() +".nameTagFormat", format);
+        config.save();
+        load();
     }
 }

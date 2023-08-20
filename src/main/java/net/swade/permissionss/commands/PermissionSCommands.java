@@ -18,6 +18,8 @@ public class PermissionSCommands {
         commands.add(new DefaultGroup());
         commands.add(new PermissionsSInfo());
         commands.add(new SetFormat());
+        commands.add(new SetUserPermission());
+        commands.add(new UnsetUserPermission());
         map.registerAll("permissionss", commands);
     }
 }
