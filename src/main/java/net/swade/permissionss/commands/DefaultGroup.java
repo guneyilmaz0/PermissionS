@@ -2,6 +2,8 @@ package net.swade.permissionss.commands;
 
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
+import cn.nukkit.command.data.CommandParamType;
+import cn.nukkit.command.data.CommandParameter;
 import net.swade.permissionss.Utils;
 import net.swade.permissionss.group.Group;
 import net.swade.permissionss.group.GroupManager;
@@ -11,6 +13,10 @@ public class DefaultGroup extends Command {
         super("defaultgroup", Utils.translate("commands.default_group.description"));
         setUsage(Utils.translate("commands.default_group.usage"));
         setPermission("permissionss.defaultgroup");
+        commandParameters.clear();
+        commandParameters.put("default", new CommandParameter[]{
+                CommandParameter.newType("group", CommandParamType.STRING)
+        });
     }
 
     @Override

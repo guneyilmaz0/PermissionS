@@ -4,6 +4,8 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
+import cn.nukkit.command.data.CommandParamType;
+import cn.nukkit.command.data.CommandParameter;
 import net.swade.permissionss.Utils;
 import net.swade.permissionss.event.PlayerGroupChangeEvent;
 import net.swade.permissionss.group.Group;
@@ -14,6 +16,11 @@ public class SetGroup extends Command {
         super("setgroup", Utils.translate("commands.set_group.description"));
         setUsage(Utils.translate("commands.set_group.usage"));
         setPermission("permissionss.setgroup");
+        commandParameters.clear();
+        commandParameters.put("default", new CommandParameter[]{
+                CommandParameter.newType("player", CommandParamType.TARGET),
+                CommandParameter.newType("group", CommandParamType.STRING)
+        });
     }
 
     @Override

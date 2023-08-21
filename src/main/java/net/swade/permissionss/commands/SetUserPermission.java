@@ -2,6 +2,8 @@ package net.swade.permissionss.commands;
 
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
+import cn.nukkit.command.data.CommandParamType;
+import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.utils.Config;
 import net.swade.permissionss.Main;
 import net.swade.permissionss.Utils;
@@ -13,6 +15,11 @@ public class SetUserPermission extends Command {
         super("setuperm", Utils.translate("commands.set_user_permission.description"));
         setUsage(Utils.translate("commands.set_user_permission.usage"));
         setPermission("permissionss.setuperm");
+        commandParameters.clear();
+        commandParameters.put("default", new CommandParameter[]{
+                CommandParameter.newType("player", CommandParamType.TARGET),
+                CommandParameter.newType("permission", CommandParamType.STRING)
+        });
     }
 
     @Override
