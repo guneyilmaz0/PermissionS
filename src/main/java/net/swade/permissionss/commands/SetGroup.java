@@ -36,7 +36,7 @@ public class SetGroup extends Command {
 
         Group group = GroupManager.getGroup(strings[1]);
         if (group == null){
-            commandSender.sendMessage(Utils.translate("commands.set_group.not_found", strings[1]));;
+            commandSender.sendMessage(Utils.translate("commands.set_group.not_found", strings[1]));
             return false;
         }
 

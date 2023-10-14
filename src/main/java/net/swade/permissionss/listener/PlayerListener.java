@@ -13,6 +13,7 @@ import net.swade.permissionss.group.Group;
 import net.swade.permissionss.group.GroupManager;
 import net.swade.permissionss.permission.PermissionManager;
 
+@SuppressWarnings("unused")
 public class PlayerListener implements Listener {
 
     @EventHandler

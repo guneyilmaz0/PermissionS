@@ -6,7 +6,7 @@
 
     <groupId>net.swade.permissionss</groupId>
     <artifactId>PermissionsS</artifactId>
-    <version>1.0-beta</version>
+    <version>1.0.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

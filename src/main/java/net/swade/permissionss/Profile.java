@@ -8,12 +8,13 @@ import lombok.Setter;
 
 import java.util.List;
 
+@Getter
 @AllArgsConstructor
 public class Profile {
-    @Getter private final String name;
-    @Getter @Setter private String group;
-    @Getter @Setter private List<String> permissions;
-    @Getter @Setter private long time;
+    private final String name;
+    @Setter private String group;
+    @Setter private List<String> permissions;
+    @Setter private long time;
 
     public static Profile getProfile(String name) {
         Config config = new Config(Main.getInstance().getPlayerConfigPath(), 1);

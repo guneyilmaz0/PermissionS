@@ -32,7 +32,7 @@ public class DefaultGroup extends Command {
 
         Group group = GroupManager.getGroup(strings[0]);
         if (group == null){
-            commandSender.sendMessage(Utils.translate("commands.default_group.not_found", strings[0]));;
+            commandSender.sendMessage(Utils.translate("commands.default_group.not_found", strings[0]));
             return false;
         }
 
