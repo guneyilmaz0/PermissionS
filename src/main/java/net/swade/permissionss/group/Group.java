@@ -16,11 +16,12 @@ public class Group {
 
     public List<String> getAllPermissions() {
         List<String> perms = new ArrayList<>(this.permissions);
-        if (inheritance.size() == 0){
+        if (inheritance.isEmpty()){
             return perms;
         }
         for (String inheritance : this.inheritance) {
             Group group = GroupManager.getGroup(inheritance);
+            assert group != null;
             perms.addAll(group.getAllPermissions());
         }
         return perms;

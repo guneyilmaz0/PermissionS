@@ -11,6 +11,7 @@ import net.swade.permissionss.permission.PermissionManager;
 
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class GroupManager {
 
     public static List<Group> groups;
@@ -81,7 +82,7 @@ public class GroupManager {
     }
 
     public static Process addGroup(String groupName){
-        if (!Utils.isValidGroupName(groupName)){
+        if (Utils.isInvalidGroupName(groupName)){
             return Process.INVALID_NAME;
         }else if (getGroup(groupName) != null){
             return Process.ALREADY_EXISTS;
@@ -101,13 +102,14 @@ public class GroupManager {
     }
 
     public static Process removeGroup(String groupName){
-        if (!Utils.isValidGroupName(groupName)){
+        if (Utils.isInvalidGroupName(groupName)){
             return Process.INVALID_NAME;
         }else if (getGroup(groupName) == null){
             return Process.NOT_FOUND;
         }
         Group group = getGroup(groupName);
         Config config = new Config(Main.getInstance().getDataFolder() + "/groups.yml", 2);
+        assert group != null;
         config.remove(group.getName());
         config.save();
         load();

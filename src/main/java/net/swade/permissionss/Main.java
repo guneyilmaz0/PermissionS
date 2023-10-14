@@ -1,6 +1,5 @@
 package net.swade.permissionss;
 
-import cn.nukkit.Player;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
 import lombok.Getter;

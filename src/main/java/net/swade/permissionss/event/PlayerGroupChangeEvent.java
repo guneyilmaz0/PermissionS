@@ -8,17 +8,14 @@ import lombok.Getter;
 import net.swade.permissionss.Main;
 import net.swade.permissionss.group.Group;
 
+@Getter
 public class PlayerGroupChangeEvent extends PluginEvent {
-    @Getter private final Player player;
-    @Getter private final Group newGroup;
-    @Getter private final Group oldGroup;
-    @Getter private final CommandSender changer;
+    private final Player player;
+    private final Group newGroup;
+    private final Group oldGroup;
+    private final CommandSender changer;
 
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
 
     public PlayerGroupChangeEvent(Player player, Group newGroup, Group oldGroup, CommandSender changer) {
         super(Main.getInstance());

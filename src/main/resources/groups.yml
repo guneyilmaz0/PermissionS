@@ -6,5 +6,37 @@ guest:
   aliases:
     - "g"
     - "misafir"
+    - "gues"
   permissions: []
   inheritance: []
+admin:
+  name: "Admin"
+  id: "admin"
+  nameTagFormat: "§7[§dAdmin§7] %nickname%"
+  chatFormat: "§7[§dAdmin§7] %nickname% §e» §6%message%"
+  aliases:
+    - "adm"
+    - "admin"
+  permissions:
+    - nukkit.broadcast
+    - nukkit.command.gamemode
+    - nukkit.command.give
+    - nukkit.command.kick
+    - nukkit.command.teleport
+    - nukkit.command.time
+  inheritance:
+    - "guest"
+owner:
+  name: "Owner"
+  id: "owner"
+  nameTagFormat: "§8[§cOwner§8] §6%nickname%"
+  chatFormat: "§8[§cOwner§8] §6%nickname% §e» §d%message%"
+  aliases:
+    - "own"
+    - "owr"
+    - "ownr"
+  permissions:
+    - nukkit.command
+    - nukkit.command.ban
+  inheritance:
+    - "admin"

@@ -1,7 +1,8 @@
 package net.swade.permissionss;
 
 public class Utils {
-    public static boolean isValidGroupName(String groupName) {
+    public static boolean isInvalidGroupName(String groupName) {
+        //TODO
         return true;
     }
 
