@@ -7,6 +7,7 @@ import net.swade.permissionss.commands.PermissionSCommands;
 import net.swade.permissionss.group.GroupManager;
 import net.swade.permissionss.listener.PlayerListener;
 import net.swade.permissionss.permission.PermissionManager;
+import net.swade.permissionss.task.ExpireDateCheckTask;
 
 import java.util.ArrayList;
 
@@ -25,12 +26,13 @@ public class Main extends PluginBase {
 
     @Override
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         PermissionSCommands.init();
         GroupManager.load();
         getLogger().info("Groups Loaded");
         getLogger().info("Groups size: " + GroupManager.groups.size());
         PermissionManager.addPermsToOnlinePlayers();
+        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        getServer().getScheduler().scheduleRepeatingTask(new ExpireDateCheckTask(), 72000);
     }
 
     @Override
