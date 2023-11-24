@@ -22,7 +22,7 @@ public class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         PermissionManager.handlePermissions(player);
-        player.setNameTag(GroupManager.getPlayerGroup(player).getNameTagFormat());
+        player.setNameTag(GroupManager.getPlayerGroup(player).getNameTagFormat().replaceAll("%nickname%", player.getName()));
     }
 
     @EventHandler
@@ -31,9 +31,7 @@ public class PlayerListener implements Listener {
         if (attachment != null) {
             try {
                 event.getPlayer().removeAttachment(attachment);
-            } catch (Throwable ignored) {
-
-            }
+            } catch (Throwable ignored) {}
         }
     }
 

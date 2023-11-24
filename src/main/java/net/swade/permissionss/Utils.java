@@ -3,7 +3,7 @@ package net.swade.permissionss;
 public class Utils {
     public static boolean isInvalidGroupName(String groupName) {
         //TODO
-        return true;
+        return false;
     }
 
     public static String translate(String string){
