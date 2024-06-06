@@ -1,4 +1,4 @@
-package net.swade.permissionss.commands;
+package net.guneyilmaz0.permissionss.commands;
 
 import cn.nukkit.Server;
 import cn.nukkit.command.Command;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PermissionSCommands {
-    public static void init(){
+    public static void init() {
         CommandMap map = Server.getInstance().getCommandMap();
         List<Command> commands = new ArrayList<>();
         commands.add(new AddGroup());

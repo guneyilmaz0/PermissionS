@@ -1,4 +1,4 @@
-package net.swade.permissionss;
+package net.guneyilmaz0.permissionss;
 
 public class Utils {
     public static boolean isInvalidGroupName(String groupName) {
@@ -6,7 +6,7 @@ public class Utils {
         return false;
     }
 
-    public static String translate(String string){
+    public static String translate(String string) {
         return Main.getInstance().getConfig().getString(string, string);
     }
 

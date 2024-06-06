@@ -1,25 +1,27 @@
-package net.swade.permissionss;
+package net.guneyilmaz0.permissionss;
 
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
 import lombok.Getter;
-import net.swade.permissionss.commands.PermissionSCommands;
-import net.swade.permissionss.group.GroupManager;
-import net.swade.permissionss.listener.PlayerListener;
-import net.swade.permissionss.permission.PermissionManager;
-import net.swade.permissionss.task.ExpireDateCheckTask;
+import net.guneyilmaz0.permissionss.listener.PlayerListener;
+import net.guneyilmaz0.permissionss.task.ExpireDateCheckTask;
+import net.guneyilmaz0.permissionss.commands.PermissionSCommands;
+import net.guneyilmaz0.permissionss.group.GroupManager;
+import net.guneyilmaz0.permissionss.permission.PermissionManager;
 
 import java.util.ArrayList;
 
 public class Main extends PluginBase {
 
-    @Getter private static Main instance;
-    @Getter private String playerConfigPath;
+    @Getter
+    private static Main instance;
+    @Getter
+    private String playerConfigPath;
 
     @Override
     public void onLoad() {
         instance = this;
-        playerConfigPath  = getDataFolder().getPath() + "/players.json";
+        playerConfigPath = getDataFolder().getPath() + "/players.json";
         saveDefaultConfig();
         saveResource("groups.yml");
     }
@@ -40,7 +42,7 @@ public class Main extends PluginBase {
         PermissionManager.removePermissions();
     }
 
-    public void registerPlayer(String name){
+    public void registerPlayer(String name) {
         Config config = new Config(playerConfigPath, 1);
         Profile profile = new Profile(name, GroupManager.getDefaultGroup().getId(), new ArrayList<>(), -1);
         config.set(name.toLowerCase(), profile.toString());

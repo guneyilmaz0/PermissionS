@@ -1,4 +1,4 @@
-package net.swade.permissionss.listener;
+package net.guneyilmaz0.permissionss.listener;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
@@ -8,12 +8,12 @@ import cn.nukkit.event.player.PlayerChatEvent;
 import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.permission.PermissionAttachment;
-import net.swade.permissionss.Utils;
-import net.swade.permissionss.event.PlayerGroupChangeEvent;
-import net.swade.permissionss.event.PlayerRankExpiredEvent;
-import net.swade.permissionss.group.Group;
-import net.swade.permissionss.group.GroupManager;
-import net.swade.permissionss.permission.PermissionManager;
+import net.guneyilmaz0.permissionss.Utils;
+import net.guneyilmaz0.permissionss.event.PlayerGroupChangeEvent;
+import net.guneyilmaz0.permissionss.event.PlayerRankExpiredEvent;
+import net.guneyilmaz0.permissionss.group.Group;
+import net.guneyilmaz0.permissionss.group.GroupManager;
+import net.guneyilmaz0.permissionss.permission.PermissionManager;
 
 @SuppressWarnings("unused")
 public class PlayerListener implements Listener {
@@ -28,12 +28,12 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         PermissionAttachment attachment = PermissionManager.permissions.get(event.getPlayer().getUniqueId());
-        if (attachment != null) {
-            try {
-                event.getPlayer().removeAttachment(attachment);
-            } catch (Throwable ignored) {}
-        }
+        if (attachment == null) return;
+        try {
+            event.getPlayer().removeAttachment(attachment);
+        } catch (Throwable ignored) {}
     }
+
 
     @EventHandler
     public void onChat(PlayerChatEvent event) {
@@ -52,7 +52,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onRankExpired(PlayerRankExpiredEvent event){
+    public void onRankExpired(PlayerRankExpiredEvent event) {
         Player player = event.getPlayer();
         Group oldGroup = GroupManager.getPlayerGroup(player);
         Group group = GroupManager.getDefaultGroup();

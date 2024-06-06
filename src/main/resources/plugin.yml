@@ -1,6 +1,6 @@
 name: PermissionsS
-main: net.swade.permissionss.Main
+main: net.guneyilmaz0.permissionss.Main
 version: 1.0.1
 api: 1.0.14
-author: SwadeDev0
+author: guneyilmaz0
 load: STARTUP

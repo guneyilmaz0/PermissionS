@@ -1,12 +1,12 @@
-package net.swade.permissionss.commands;
+package net.guneyilmaz0.permissionss.commands;
 
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
-import net.swade.permissionss.Utils;
-import net.swade.permissionss.enums.Process;
-import net.swade.permissionss.group.GroupManager;
+import net.guneyilmaz0.permissionss.Utils;
+import net.guneyilmaz0.permissionss.enums.Process;
+import net.guneyilmaz0.permissionss.group.GroupManager;
 
 public class AddGroup extends Command {
     public AddGroup() {
@@ -21,17 +21,15 @@ public class AddGroup extends Command {
 
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
-        if (!testPermission(commandSender)){
-            return false;
-        }
+        if (!testPermission(commandSender)) return false;
 
-        if (strings.length != 1){
+        if (strings.length != 1) {
             commandSender.sendMessage(getUsage());
             return false;
         }
 
         Process result = GroupManager.addGroup(strings[0]);
-        switch (result){
+        switch (result) {
             case SUCCESS:
                 commandSender.sendMessage(Utils.translate("commands.add_group.success", strings[0]));
                 break;

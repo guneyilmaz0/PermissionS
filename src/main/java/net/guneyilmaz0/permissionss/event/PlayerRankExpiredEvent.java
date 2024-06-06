@@ -1,9 +1,9 @@
-package net.swade.permissionss.event;
+package net.guneyilmaz0.permissionss.event;
 
 import cn.nukkit.Player;
 import cn.nukkit.event.plugin.PluginEvent;
 import lombok.Getter;
-import net.swade.permissionss.Main;
+import net.guneyilmaz0.permissionss.Main;
 
 @Getter
 public class PlayerRankExpiredEvent extends PluginEvent {
