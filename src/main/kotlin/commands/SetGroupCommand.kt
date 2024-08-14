@@ -3,10 +3,12 @@ package net.guneyilmaz0.permissions.commands
 import cn.nukkit.Server
 import cn.nukkit.command.Command
 import cn.nukkit.command.CommandSender
+import cn.nukkit.command.data.CommandEnum
 import cn.nukkit.command.data.CommandParamType
 import cn.nukkit.command.data.CommandParameter
 import net.guneyilmaz0.permissions.Utils.translate
 import net.guneyilmaz0.permissions.events.PlayerGroupChangeEvent
+import net.guneyilmaz0.permissions.group.GroupManager
 import net.guneyilmaz0.permissions.group.GroupManager.getGroup
 import net.guneyilmaz0.permissions.group.GroupManager.setPlayerGroup
 
@@ -19,7 +21,7 @@ class SetGroupCommand : Command("setgroup", translate("commands.set_group.descri
         commandParameters["default"] =
             arrayOf(
                 CommandParameter.newType("player", CommandParamType.TARGET),
-                CommandParameter.newType("group", CommandParamType.STRING)
+                CommandParameter.newEnum("group", CommandEnum("group", GroupManager.getGroupIds()))
             )
     }
 

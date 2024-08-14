@@ -3,15 +3,14 @@ package net.guneyilmaz0.permissions.group
 import cn.nukkit.Player
 import cn.nukkit.utils.Config
 import cn.nukkit.utils.ConfigSection
-import net.guneyilmaz0.permissions.enums.Process
 import net.guneyilmaz0.permissions.Main
 import net.guneyilmaz0.permissions.Profile
 import net.guneyilmaz0.permissions.Utils
+import net.guneyilmaz0.permissions.enums.Process
 import net.guneyilmaz0.permissions.permission.PermissionManager
 
 object GroupManager {
 
-    @JvmStatic
     var groups: MutableList<Group> = mutableListOf()
 
     fun load() {
@@ -33,7 +32,6 @@ object GroupManager {
         }
     }
 
-    @JvmStatic
     fun getGroup(name: String): Group? {
         return groups.find {
             it.name.equals(name, ignoreCase = true) ||
@@ -42,7 +40,9 @@ object GroupManager {
         }
     }
 
-    @JvmStatic
+    fun getGroupIds(): List<String> = groups.map { it.id }
+
+
     fun getDefaultGroup(): Group {
         val config = Main.instance.config
         return getGroup(config.getString("defaultGroup")) ?: run {
@@ -52,20 +52,17 @@ object GroupManager {
         }
     }
 
-    @JvmStatic
     fun setDefaultGroup(group: Group) {
         val config = Main.instance.config
         config.set("defaultGroup", group.id)
         config.save()
     }
 
-    @JvmStatic
     fun getPlayerGroup(player: Player): Group {
         return getPlayerGroup(player.name)
     }
 
-    @JvmStatic
-    fun getPlayerGroup(name: String): Group {
+    private fun getPlayerGroup(name: String): Group {
         val profile = Profile.getProfile(name)
         return profile?.let {
             getGroup(it.group)
@@ -75,12 +72,10 @@ object GroupManager {
         }
     }
 
-    @JvmStatic
     fun setPlayerGroup(player: Player, group: Group) {
         setPlayerGroup(player.name, group)
     }
 
-    @JvmStatic
     fun setPlayerGroup(name: String, group: Group) {
         val profile = Profile.getProfile(name)
         profile?.let {
@@ -90,7 +85,6 @@ object GroupManager {
         PermissionManager.reloadPermissions()
     }
 
-    @JvmStatic
     fun addGroup(groupName: String): Process {
         return when {
             Utils.isInvalidGroupName(groupName) -> Process.INVALID_NAME
@@ -111,7 +105,6 @@ object GroupManager {
         }
     }
 
-    @JvmStatic
     fun removeGroup(groupName: String): Process {
         return when {
             Utils.isInvalidGroupName(groupName) -> Process.INVALID_NAME
@@ -127,18 +120,9 @@ object GroupManager {
         }
     }
 
-    @JvmStatic
     fun setChatFormat(group: Group, format: String) {
         val config = Config("${Main.instance.dataFolder}/groups.yml", Config.YAML)
         config.set("${group.id}.chatFormat", format)
-        config.save()
-        load()
-    }
-
-    @JvmStatic
-    fun setNameTagFormat(group: Group, format: String) {
-        val config = Config("${Main.instance.dataFolder}/groups.yml", Config.YAML)
-        config.set("${group.id}.nameTagFormat", format)
         config.save()
         load()
     }
