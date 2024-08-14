@@ -2,7 +2,7 @@ package net.guneyilmaz0.permissions
 
 import cn.nukkit.plugin.PluginBase
 import cn.nukkit.utils.Config
-import net.guneyilmaz0.permissions.commands.PermissionSCommands
+import net.guneyilmaz0.permissions.commands.*
 import net.guneyilmaz0.permissions.group.GroupManager
 import net.guneyilmaz0.permissions.listeners.PlayerListener
 import net.guneyilmaz0.permissions.permission.PermissionManager
@@ -23,7 +23,7 @@ class Main : PluginBase() {
     }
 
     override fun onEnable() {
-        PermissionSCommands.init()
+        registerCommands()
         GroupManager.load()
         logger.info("Groups Loaded")
         logger.info("Groups size: ${GroupManager.groups.size}")
@@ -41,5 +41,21 @@ class Main : PluginBase() {
         val profile = Profile(name, GroupManager.getDefaultGroup().id, mutableListOf(), -1)
         config.set(name.lowercase(), profile.toString())
         config.save()
+    }
+
+    private fun registerCommands() {
+        val map = mapOf(
+            "addgroup" to AddGroupCommand(),
+            "defaultgroup" to DefaultGroupCommand(),
+            "info" to InfoCommand(),
+            "listgroup" to ListGroupCommand(),
+            "removegroup" to RemoveGroupCommand(),
+            "setformat" to SetFormatCommand(),
+            "setgroup" to SetGroupCommand(),
+            "setuperm" to SetUPermCommand(),
+            "unsetuperm" to UnsetUPermCommand()
+        )
+
+        for ((name, command) in map) server.commandMap.register(name, command)
     }
 }
