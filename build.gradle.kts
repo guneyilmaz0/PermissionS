@@ -8,13 +8,19 @@ version = "1.1"
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://repo.opencollab.dev/maven-releases")
+    }
+    maven {
+        url = uri("https://repo.opencollab.dev/maven-snapshots")
+    }
 }
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0")
     implementation("com.google.code.gson:gson:2.10.1")
     testImplementation(kotlin("test"))
-    implementation(files("C:/PNX/powernukkitx-2.0.0-SNAPSHOT.jar"))
+    compileOnly ("cn.nukkit:nukkit:1.0-SNAPSHOT")
 }
 
 tasks.test {

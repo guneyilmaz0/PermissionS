@@ -19,7 +19,7 @@ class PlayerListener : Listener {
     private fun onJoin(event: PlayerJoinEvent) {
         val player = event.player
         PermissionManager.handlePermissions(player)
-        player.nameTag = GroupManager.getPlayerGroup(player)?.nameTagFormat?.replace("%nickname%", player.name) ?: player.name
+        player.nameTag = GroupManager.getPlayerGroup(player).nameTagFormat.replace("%nickname%", player.name)
     }
 
     @EventHandler
@@ -31,7 +31,7 @@ class PlayerListener : Listener {
     @EventHandler
     private fun onChat(event: PlayerChatEvent) {
         val player = event.player
-        val group = GroupManager.getPlayerGroup(player) ?: return
+        val group = GroupManager.getPlayerGroup(player)
         val format = group.chatFormat
         val message = format.replace("%nickname%", player.name).replace("%message%", event.message)
         event.format = message
