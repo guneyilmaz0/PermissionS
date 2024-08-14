@@ -1,6 +1,6 @@
 name: PermissionsS
 main: net.guneyilmaz0.permissions.Main
 version: 1.0.1
-api: [ "2.0.0" ]
+api: [ "1.0.15" ]
 author: guneyilmaz0
 load: STARTUP
