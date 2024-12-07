@@ -2,15 +2,10 @@ package net.guneyilmaz0.permissions
 
 object Utils {
     @JvmStatic
-    fun isInvalidGroupName(groupName: String): Boolean {
-        //TODO: Implement validation logic
-        return false
-    }
+    fun isInvalidGroupName(groupName: String): Boolean = !"^[a-zA-Z0-9_]+$".toRegex().matches(groupName)
 
     @JvmStatic
-    fun translate(string: String): String {
-        return Main.instance.config.getString(string, string)
-    }
+    fun translate(string: String): String = Main.instance.config.getString(string, string)
 
     @JvmStatic
     fun translate(string: String, vararg strings: String): String {
