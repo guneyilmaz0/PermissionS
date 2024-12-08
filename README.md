@@ -17,5 +17,18 @@ PermissionS is a plugin for Nukkit that allows you to create your own permission
 > You must have a KotlinForNukkit plugin.
 > You can download it [here](https://cloudburstmc.org/resources/kotlinfornukkit.982/)
 
+---
+Commands
+---
 
-
+| Command         | Description                                                               | Usage                           | Permission                   |
+|-----------------|---------------------------------------------------------------------------|---------------------------------|------------------------------|
+| `/addgroup`     | Adds a new group.                                                         | /addgroup <group>               | `permissionss.add_group`     |
+| `/removegroup`  | Removes a rank from the group list.                                       | /removegroup <group>            | `permissionss.remove_group`  |
+| `/setgroup`     | Sets a group for the user.                                                | /setgroup <player> <group>      | `permissionss.setgroup`      |
+| `/groups`       | Shows a list of all groups.                                               | /groups                         | `permissionss.list_groups`   |
+| `/defaultgroup` | Allows you to set default group.                                          | /defaultgroup <group>           | `permissionss.default_group` |
+| `/permsinfo`    | Shows current PermissionS information including author, version, and etc. | /permsinfo                      | `permissionss.info`          |
+| `/setformat`    | Allows you to set chat format of a group                                  | /setformat <group> <format>     | `permissionss.setformat`     |
+| `/setuperm`     | Adds a permission to the user.                                            | /setuperm <player> <permission> | `permissionss.setuperm`      |
+| `/unset`        | Removes a permission from the user.                                       | /unset <player> <permission>    | `permissionss.unset`         |

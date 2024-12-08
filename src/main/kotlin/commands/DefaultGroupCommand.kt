@@ -12,7 +12,7 @@ class DefaultGroupCommand : Command("defaultgroup", translate("commands.default_
 
     init {
         usage = translate("commands.default_group.usage")
-        permission = "permissions.default_group"
+        permission = "permissionss.default_group"
         commandParameters.clear()
         commandParameters["default"] = arrayOf(CommandParameter.newType("group", CommandParamType.STRING))
     }

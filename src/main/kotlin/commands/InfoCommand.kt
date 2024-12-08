@@ -9,7 +9,7 @@ import net.guneyilmaz0.permissions.Utils.translate
 class InfoCommand : Command("permsinfo", translate("commands.permsinfo.description")) {
 
     init {
-        permission = "permissions.info"
+        permission = "permissionss.info"
     }
 
     override fun execute(commandSender: CommandSender, string: String, strings: Array<String>): Boolean {

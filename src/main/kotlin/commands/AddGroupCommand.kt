@@ -12,7 +12,7 @@ class AddGroupCommand : Command("addgroup", translate("commands.add_group.descri
 
     init {
         usage = translate("commands.add_group.usage")
-        permission = "permissions.add_group"
+        permission = "permissionss.add_group"
         commandParameters.clear()
         commandParameters["default"] = arrayOf(CommandParameter.newType("group", CommandParamType.STRING))
     }

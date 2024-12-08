@@ -9,7 +9,7 @@ class ListGroupCommand : Command("listgroups", translate("commands.groups.descri
 
     init {
         aliases = arrayOf("groups")
-        permission = "permissions.list_groups"
+        permission = "permissionss.list_groups"
     }
 
     override fun execute(commandSender: CommandSender, string: String, strings: Array<String>): Boolean {
