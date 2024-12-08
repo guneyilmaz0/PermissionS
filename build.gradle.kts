@@ -20,7 +20,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0")
     implementation("com.google.code.gson:gson:2.10.1")
     testImplementation(kotlin("test"))
-    compileOnly ("cn.nukkit:nukkit:1.0-SNAPSHOT")
+    compileOnly(files("libs/powernukkitx-2.0.0-SNAPSHOT-all.jar"))
 }
 
 tasks.test {
