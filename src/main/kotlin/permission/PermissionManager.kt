@@ -1,81 +1,71 @@
 package net.guneyilmaz0.permissions.permission
 
 import cn.nukkit.Player
+import cn.nukkit.Server
 import cn.nukkit.permission.PermissionAttachment
 import net.guneyilmaz0.permissions.enums.Process
-import net.guneyilmaz0.permissions.Main
+import net.guneyilmaz0.permissions.PermissionsS
 import net.guneyilmaz0.permissions.Profile
 import net.guneyilmaz0.permissions.group.Group
 import net.guneyilmaz0.permissions.group.GroupManager
 import java.util.*
 
 object PermissionManager {
-    val permissions: MutableMap<UUID, PermissionAttachment> = mutableMapOf()
+    val attachments: HashMap<UUID, PermissionAttachment> = HashMap()
 
     fun addPermsToOnlinePlayers() {
-        Main.instance.server.onlinePlayers.values.forEach { player ->
-            handlePermissions(player)
-        }
+        for (value in PermissionsS.instance.server.onlinePlayers.values) handlePermissions(value)
     }
 
     fun handlePermissions(player: Player) {
-        val attachment = player.addAttachment(Main.instance)
+        if (attachments.containsKey(player.uniqueId)) player.removeAttachment(attachments[player.uniqueId]!!)
+
+        val attachment = player.addAttachment(PermissionsS.instance)
         val group: Group = GroupManager.getPlayerGroup(player)
 
         group.getAllPermissions().forEach { perm ->
             attachment.setPermission(perm, true)
         }
 
-        val specialPermissions: List<String> = Profile.getProfile(player.name)?.permissions ?: emptyList()
+        if (!PermissionsS.provider.isProfileExists(player.uniqueId)) return
+
+        val specialPermissions: List<String> = PermissionsS.provider.getProfile(player.uniqueId)?.permissions ?: emptyList()
         specialPermissions.forEach { specialPermission ->
             attachment.setPermission(specialPermission, true)
         }
 
-        permissions[player.uniqueId] = attachment
+        attachments[player.uniqueId] = attachment
     }
 
     @JvmStatic
-    fun addPermission(name: String, permission: String): Process {
-        val profile = Profile.getProfile(name.lowercase()) ?: return Process.NOT_FOUND
+    fun addPermission(uuid: UUID, permission: String): Process {
+        if (!PermissionsS.provider.isProfileExists(uuid)) return Process.NOT_FOUND
+        val profile = PermissionsS.provider.getProfile(uuid)!!
         val specialPermissions = profile.permissions.toMutableList()
 
-        if (specialPermissions.contains(permission)) {
-            return Process.ALREADY_EXISTS
-        }
+        if (specialPermissions.contains(permission)) return Process.ALREADY_EXISTS
 
         specialPermissions.add(permission)
         profile.permissions = specialPermissions
-        profile.save()
-        reloadPermissions()
+        PermissionsS.provider.saveProfile(profile)
+        val player = Server.getInstance().getOfflinePlayer(uuid)
+        if (player.isOnline) handlePermissions(player as Player)
         return Process.SUCCESS
     }
 
     @JvmStatic
-    fun removePermission(name: String, permission: String): Process {
-        val profile = Profile.getProfile(name.lowercase()) ?: return Process.NOT_FOUND
+    fun removePermission(uuid: UUID, permission: String): Process {
+        if (!PermissionsS.provider.isProfileExists(uuid)) return Process.NOT_FOUND
+        val profile = PermissionsS.provider.getProfile(uuid)!!
         val specialPermissions = profile.permissions.toMutableList()
 
-        if (!specialPermissions.contains(permission)) {
-            return Process.NOT_FOUND
-        }
+        if (!specialPermissions.contains(permission)) return Process.NOT_FOUND
 
         specialPermissions.remove(permission)
         profile.permissions = specialPermissions
-        profile.save()
-        reloadPermissions()
+        PermissionsS.provider.saveProfile(profile)
+        val player = Server.getInstance().getOfflinePlayer(uuid)
+        if (player.isOnline) handlePermissions(player as Player)
         return Process.SUCCESS
-    }
-
-    fun removePermissions() {
-        Main.instance.server.onlinePlayers.values.forEach { player ->
-            permissions[player.uniqueId]?.let { attachment ->
-                player.removeAttachment(attachment)
-            }
-        }
-    }
-
-    fun reloadPermissions() {
-        removePermissions()
-        addPermsToOnlinePlayers()
     }
 }

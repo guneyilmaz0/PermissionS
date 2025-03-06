@@ -1,13 +1,14 @@
 package net.guneyilmaz0.permissions.group
 
 import cn.nukkit.Player
+import cn.nukkit.Server
 import cn.nukkit.utils.Config
 import cn.nukkit.utils.ConfigSection
-import net.guneyilmaz0.permissions.Main
-import net.guneyilmaz0.permissions.Profile
+import net.guneyilmaz0.permissions.PermissionsS
 import net.guneyilmaz0.permissions.Utils
 import net.guneyilmaz0.permissions.enums.Process
 import net.guneyilmaz0.permissions.permission.PermissionManager
+import java.util.UUID
 
 object GroupManager {
 
@@ -15,7 +16,7 @@ object GroupManager {
 
     fun load() {
         groups.clear()
-        val config = Config("${Main.instance.dataFolder}/groups.yml", Config.YAML)
+        val config = Config("${PermissionsS.instance.dataFolder}/groups.yml", Config.YAML)
         val map: Map<String, Any> = config.all
         map.forEach { (string, _) ->
             val section: ConfigSection = config.getSection(string)
@@ -44,7 +45,7 @@ object GroupManager {
 
 
     fun getDefaultGroup(): Group {
-        val config = Main.instance.config
+        val config = PermissionsS.instance.config
         return getGroup(config.getString("defaultGroup")) ?: run {
             val group = groups.first()
             setDefaultGroup(group)
@@ -53,36 +54,33 @@ object GroupManager {
     }
 
     fun setDefaultGroup(group: Group) {
-        val config = Main.instance.config
+        val config = PermissionsS.instance.config
         config.set("defaultGroup", group.id)
         config.save()
     }
 
     fun getPlayerGroup(player: Player): Group {
-        return getPlayerGroup(player.name)
-    }
-
-    private fun getPlayerGroup(name: String): Group {
-        val profile = Profile.getProfile(name)
-        return profile?.let {
-            getGroup(it.group)
-        } ?: run {
-            Main.instance.registerPlayer(name)
-            getDefaultGroup()
+        if (PermissionsS.provider.isProfileExists(player.uniqueId))
+            return getGroup(PermissionsS.provider.getProfile(player.uniqueId)!!.group) ?: getDefaultGroup()
+        else {
+            PermissionsS.provider.registerPlayer(player.uniqueId, player.name)
+            return getDefaultGroup()
         }
     }
 
     fun setPlayerGroup(player: Player, group: Group) {
-        setPlayerGroup(player.name, group)
+        setPlayerGroup(player.uniqueId, group)
     }
 
-    fun setPlayerGroup(name: String, group: Group) {
-        val profile = Profile.getProfile(name)
-        profile?.let {
-            it.group = group.id
-            it.save()
+    fun setPlayerGroup(uuid: UUID, group: Group) {
+        if (!PermissionsS.provider.isProfileExists(uuid)) {
+            throw IllegalArgumentException("Profile not found")
         }
-        PermissionManager.reloadPermissions()
+        val profile = PermissionsS.provider.getProfile(uuid)!!
+        profile.group = group.id
+        PermissionsS.provider.saveProfile(profile)
+        val player = Server.getInstance().getOfflinePlayer(uuid)
+        if (player.isOnline) PermissionManager.handlePermissions(player.player!!)
     }
 
     fun addGroup(groupName: String): Process {
@@ -90,7 +88,7 @@ object GroupManager {
             Utils.isInvalidGroupName(groupName) -> Process.INVALID_NAME
             getGroup(groupName) != null -> Process.ALREADY_EXISTS
             else -> {
-                val config = Config("${Main.instance.dataFolder}/groups.yml", Config.YAML)
+                val config = Config("${PermissionsS.instance.dataFolder}/groups.yml", Config.YAML)
                 config.set("$groupName.name", groupName)
                 config.set("$groupName.id", groupName.lowercase())
                 config.set("$groupName.nameTagFormat", "§7[§a$groupName§7] %nickname%")
@@ -111,7 +109,7 @@ object GroupManager {
             getGroup(groupName) == null -> Process.NOT_FOUND
             else -> {
                 val group = getGroup(groupName) ?: return Process.NOT_FOUND
-                val config = Config("${Main.instance.dataFolder}/groups.yml", Config.YAML)
+                val config = Config("${PermissionsS.instance.dataFolder}/groups.yml", Config.YAML)
                 config.remove(group.name)
                 config.save()
                 load()
@@ -121,7 +119,7 @@ object GroupManager {
     }
 
     fun setChatFormat(group: Group, format: String) {
-        val config = Config("${Main.instance.dataFolder}/groups.yml", Config.YAML)
+        val config = Config("${PermissionsS.instance.dataFolder}/groups.yml", Config.YAML)
         config.set("${group.id}.chatFormat", format)
         config.save()
         load()

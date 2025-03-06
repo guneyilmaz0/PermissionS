@@ -1,25 +1,29 @@
 package net.guneyilmaz0.permissions
 
 import cn.nukkit.plugin.PluginBase
-import cn.nukkit.utils.Config
 import net.guneyilmaz0.permissions.commands.*
 import net.guneyilmaz0.permissions.group.GroupManager
 import net.guneyilmaz0.permissions.listeners.PlayerListener
 import net.guneyilmaz0.permissions.permission.PermissionManager
+import net.guneyilmaz0.permissions.provider.*
 import net.guneyilmaz0.permissions.tasks.ExpireDateCheckTask
 
-class Main : PluginBase() {
+class PermissionsS : PluginBase() {
 
     companion object {
-        lateinit var instance: Main
-        lateinit var playerConfigPath: String
+        lateinit var instance: PermissionsS
+        lateinit var provider: Provider
     }
 
     override fun onLoad() {
         instance = this
-        playerConfigPath = "${dataFolder.path}/players.json"
         saveDefaultConfig()
         saveResource("groups.yml")
+        provider = when (config.getString("provider", "json")) {
+            "mongo" -> MongoProvider(this)
+            else -> JSONProvider(this)
+        }
+        provider.initialize()
     }
 
     override fun onEnable() {
@@ -30,17 +34,6 @@ class Main : PluginBase() {
         PermissionManager.addPermsToOnlinePlayers()
         server.pluginManager.registerEvents(PlayerListener(), this)
         server.scheduler.scheduleRepeatingTask(ExpireDateCheckTask(), 72000)
-    }
-
-    override fun onDisable() {
-        PermissionManager.removePermissions()
-    }
-
-    fun registerPlayer(name: String) {
-        val config = Config(playerConfigPath, Config.JSON)
-        val profile = Profile(name, GroupManager.getDefaultGroup().id, mutableListOf(), -1)
-        config.set(name.lowercase(), profile.toString())
-        config.save()
     }
 
     private fun registerCommands() {

@@ -1,4 +1,10 @@
 defaultGroup: "guest"
+# Available providers: json, mongo
+provider: "json"
+
+mongo.uri: "mongodb://localhost:27017/"
+mongo.database: "database"
+
 commands:
   add_group:
     description: "Adds a new group."
@@ -38,6 +44,7 @@ commands:
   set_user_permission:
     description: "Adds a permission to the user."
     usage: "Usage: /setuperm <player> <permission>"
+    player_not_found: "Player §u%var0% §rnot found."
     already_exists: "Permission §u%var0% §ralready exists in §u%var1%"
     success: "Added permission §u%var0% §rto §u%var1% §rsuccessfully."
   unset_user_permission:

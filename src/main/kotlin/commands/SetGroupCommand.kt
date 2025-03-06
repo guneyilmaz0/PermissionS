@@ -40,14 +40,14 @@ class SetGroupCommand : Command("setgroup", translate("commands.set_group.descri
         }
 
         var name = strings[0]
-        val player = Server.getInstance().getPlayer(strings[0])
-        if (player != null) {
-            val event = PlayerGroupChangeEvent(player, group, commandSender)
+        val player = Server.getInstance().getOfflinePlayer(strings[0])
+        if (player.isOnline) {
+            val event = PlayerGroupChangeEvent(player.player, group, commandSender)
             Server.getInstance().pluginManager.callEvent(event)
             name = player.name
         }
 
-        setPlayerGroup(name, group)
+        setPlayerGroup(player.uniqueId, group)
         commandSender.sendMessage(translate("commands.set_group.success", name, group.name))
         return true
     }

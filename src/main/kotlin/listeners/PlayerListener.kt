@@ -24,7 +24,7 @@ class PlayerListener : Listener {
 
     @EventHandler
     private fun onQuit(event: PlayerQuitEvent) {
-        val attachment = PermissionManager.permissions[event.player.uniqueId] ?: return
+        val attachment = PermissionManager.attachments[event.player.uniqueId] ?: return
         event.player.removeAttachment(attachment)
     }
 
