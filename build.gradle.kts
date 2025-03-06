@@ -21,7 +21,7 @@ dependencies {
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "com.hashcubenw.skyblock.SkyBlock"
+        attributes["Main-Class"] = "net.guneyilmaz0.permissions.PermissionsS"
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from(sourceSets.main.get().output)
