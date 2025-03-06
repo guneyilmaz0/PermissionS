@@ -5,7 +5,6 @@ import cn.nukkit.Server
 import cn.nukkit.permission.PermissionAttachment
 import net.guneyilmaz0.permissions.enums.Process
 import net.guneyilmaz0.permissions.PermissionsS
-import net.guneyilmaz0.permissions.Profile
 import net.guneyilmaz0.permissions.group.Group
 import net.guneyilmaz0.permissions.group.GroupManager
 import java.util.*

@@ -2,9 +2,7 @@ package net.guneyilmaz0.permissions.tasks
 
 import cn.nukkit.Server
 import cn.nukkit.scheduler.Task
-import cn.nukkit.utils.Config
 import net.guneyilmaz0.permissions.PermissionsS
-import net.guneyilmaz0.permissions.Profile
 import net.guneyilmaz0.permissions.events.PlayerRankExpiredEvent
 
 class ExpireDateCheckTask : Task() {

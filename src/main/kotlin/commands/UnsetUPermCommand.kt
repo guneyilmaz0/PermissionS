@@ -5,7 +5,6 @@ import cn.nukkit.command.Command
 import cn.nukkit.command.CommandSender
 import cn.nukkit.command.data.CommandParamType
 import cn.nukkit.command.data.CommandParameter
-import cn.nukkit.utils.Config
 import net.guneyilmaz0.permissions.PermissionsS
 import net.guneyilmaz0.permissions.Utils.translate
 import net.guneyilmaz0.permissions.enums.Process
