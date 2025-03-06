@@ -6,6 +6,7 @@ import net.guneyilmaz0.permissions.group.GroupManager
 import net.guneyilmaz0.permissions.listeners.PlayerListener
 import net.guneyilmaz0.permissions.permission.PermissionManager
 import net.guneyilmaz0.permissions.provider.*
+import net.guneyilmaz0.permissions.tasks.CheckUpdateTask
 import net.guneyilmaz0.permissions.tasks.ExpireDateCheckTask
 
 class PermissionsS : PluginBase() {
@@ -34,6 +35,7 @@ class PermissionsS : PluginBase() {
         PermissionManager.addPermsToOnlinePlayers()
         server.pluginManager.registerEvents(PlayerListener(), this)
         server.scheduler.scheduleRepeatingTask(ExpireDateCheckTask(), 72000)
+        server.scheduler.scheduleAsyncTask(this, CheckUpdateTask())
     }
 
     private fun registerCommands() {
