@@ -15,6 +15,6 @@ data class Profile(
 
     companion object {
         fun create(uuid: UUID, name: String): Profile =
-            Profile(uuid, name, GroupManager.getDefaultGroup().id, time = System.currentTimeMillis())
+            Profile(uuid, name, GroupManager.getDefaultGroup().id, time = -1)
     }
 }
